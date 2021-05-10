@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+.drop-zone {
+    background-color: #fafaff;
+    border: 2px dotted #dbdce6;
+    border-radius: 6px;
+    height: 200px;
+    padding-top: 42px;
+
+    & span {
+        white-space: nowrap;
+    }
+}

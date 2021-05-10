@@ -1,0 +1,41 @@
+<ng-template #template>
+
+    <div class="modal-header">
+      <span class="modal-title pull-left">Change Organization Image</span>
+      <span class="link-text" *ngIf="showCropper" (click)="reUploadImg()">Re-upload Image</span>
+      <em (click)="modalRef.hide()" class="material-icons close-icon">close</em>
+    </div>
+
+    <div class="modal-body">
+        <div class="center" *ngIf="!showCropper">
+            <ngx-file-drop (onFileDrop)="dropped($event)" dropZoneClassName="drop-zone">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <em class="material-icons upload-icon">upload</em>
+                    <span class="link-text"(click)="openFileSelector()">Upload File</span>
+                    <span class="drag-text">or just drag and drop image here</span>
+                    <span class="format-text">Supported Formats: jpeg, png, tiff</span>
+                </ng-template>
+            </ngx-file-drop>
+        </div>
+
+        <div *ngIf="fileDropped">Image Loading Please Wait...</div>
+
+        <image-cropper *ngIf="showCropper"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="4 / 3"
+            [resizeToWidth]="128"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+        ></image-cropper>
+    </div>
+
+    <div class="modal-footer">
+        <img *ngIf="showCropper" [src]="croppedImage" alt="" width="55" height="55"/>
+        <span *ngIf="showCropper" class="preview-label">Preview</span>
+        <button class="btn cancel-button" (click)="modalRef.hide()">Cancel</button>
+        <button class="btn btn-primary" (click)="onSubmit()">Save Changes</button>
+    </div>
+
+</ng-template>

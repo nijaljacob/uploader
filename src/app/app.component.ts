@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ImageUploaderService } from './widget/image-uploader/image-uploader.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'uploader';
+
+    public croppedImage = 'https://via.placeholder.com/250/666/FFFFFF/?text=No Image';
+    public imageName = 'No Image Added';
+
+    constructor(
+        private imageUploaderService: ImageUploaderService
+    ) {}
+
+    public showUploader() {
+        this.imageUploaderService.openModal();
+    }
+
+    public onAfterUpload(imgObj) {
+        this.croppedImage = imgObj.image;
+        this.imageName = imgObj.name;
+    }
 }
